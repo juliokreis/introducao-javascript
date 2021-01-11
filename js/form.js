@@ -2,15 +2,13 @@ var botaoAdicionar = document.querySelector("#adicionar-paciente");
 botaoAdicionar.addEventListener("click", function(event){ //escuta um evento adicionado
     event.preventDefault();// evita o comportamento padrão do formulário dentro da função anônima
     
+    //Extrai informações do paciente do form.
     var form = document.querySelector("#form-adiciona");
-
-    var nome = form.nome.value;
-    var peso = form.peso.value;
-    var altura = form.altura.value;
-    var gordura = form.gordura.value;
+    var paciente = obtemPacienteForm(form);
+    console.log(paciente);
 
     var pacienteTr = document.createElement("tr");
-
+//Cria a Tr e a Td do paciente.
     var nomeTd = document.createElement("td");
     var pesoTd = document.createElement("td");
     var alturaTd = document.createElement("td");
@@ -30,7 +28,20 @@ botaoAdicionar.addEventListener("click", function(event){ //escuta um evento adi
     pacienteTr.appendChild(imcTd);
         
     var tabela = document.querySelector("#tabela-pacientes");
-    tabela.appendChild(pacienteTr);
-
-    
+//Adiciona paciente na tabela.    
+    tabela.appendChild(pacienteTr); 
 });
+
+
+function obtemPacienteForm(form) {
+
+    var paciente = {
+        nome: form.nome.value,
+        peso: form.peso.value,
+        altura: form.altura.value,
+        gordura: form.gordura.value,
+        imc: calculaImc(form.peso.value, form.altura.value)
+    };
+
+    return paciente;
+}
