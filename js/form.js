@@ -5,33 +5,15 @@ botaoAdicionar.addEventListener("click", function(event){ //escuta um evento adi
     //Extrai informações do paciente do form.
     var form = document.querySelector("#form-adiciona");
     var paciente = obtemPacienteForm(form);
-    console.log(paciente);
-
-    var pacienteTr = document.createElement("tr");
-//Cria a Tr e a Td do paciente.
-    var nomeTd = document.createElement("td");
-    var pesoTd = document.createElement("td");
-    var alturaTd = document.createElement("td");
-    var gorduraTd = document.createElement("td");
-    var imcTd = document.createElement("td");
-
-    nomeTd.textContent = nome;
-    pesoTd.textContent = peso;
-    alturaTd.textContent = altura;
-    gorduraTd.textContent = gordura;
-    imcTd.textContent = calculaImc(peso, altura);
-  
-    pacienteTr.appendChild(nomeTd);
-    pacienteTr.appendChild(pesoTd);
-    pacienteTr.appendChild(alturaTd);
-    pacienteTr.appendChild(gorduraTd);
-    pacienteTr.appendChild(imcTd);
-        
+    
+    //Cria a "Tr" e "Td" do paciente.
+    var pacienteTr = montaTr(paciente);
+            
+    //Adiciona paciente na tabela.    
     var tabela = document.querySelector("#tabela-pacientes");
-//Adiciona paciente na tabela.    
     tabela.appendChild(pacienteTr); 
+    form.reset();
 });
-
 
 function obtemPacienteForm(form) {
 
@@ -44,4 +26,26 @@ function obtemPacienteForm(form) {
     };
 
     return paciente;
+}
+
+function montaTr(paciente) { //Monta a "Tr"
+    var pacienteTr = document.createElement("tr"); //Cria a "Tr"
+    pacienteTr.classList.add("paciente"); //Monta a classe
+
+    //Adiciona as características de cada "Td"
+    pacienteTr.appendChild(montaTd(paciente.nome, "info-nome"));
+    pacienteTr.appendChild(montaTd(paciente.peso, "info-peso"));
+    pacienteTr.appendChild(montaTd(paciente.altura, "info-altura"));
+    pacienteTr.appendChild(montaTd(paciente.gordura, "info-gordura"));
+    pacienteTr.appendChild(montaTd(paciente.imc, "info-imc"));
+
+    return pacienteTr;
+}
+
+function montaTd(dado, classe) {
+    var td = document.createElement("td");
+    td.textContent = dado;
+    td.classList.add(classe);
+
+    return td;
 }
