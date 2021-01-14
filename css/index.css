@@ -150,8 +150,12 @@ button[disabled=disabled], button:disabled {
 	transition: 0.5s;
 }
 
-#filtar-tabela{
-	width: 250px;
+#filtrar-tabela{
+	width: 200px;
 	height: 30px;
 	margin-bottom: 10px;
+}
+
+.invisivel{
+	display: none;
 }
